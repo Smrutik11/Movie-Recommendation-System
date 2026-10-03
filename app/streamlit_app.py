@@ -59,6 +59,7 @@ def get_recommendations(model, movies, user_id, top_n=10):
 
     for movie_id in movies["movie_id"]:
         prediction = model.predict(user_id, movie_id)
+
         recommendations.append(
             (movie_id, prediction.est)
         )
@@ -94,6 +95,7 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.title("🎬 Movie Recommendation System")
 
 st.markdown(
@@ -105,6 +107,7 @@ st.markdown(
 
 st.divider()
 
+
 user_id = st.number_input(
     "Enter User ID",
     min_value=1,
@@ -113,6 +116,7 @@ user_id = st.number_input(
     step=1
 )
 
+
 top_n = st.slider(
     "Number of Recommendations",
     min_value=5,
@@ -120,7 +124,9 @@ top_n = st.slider(
     value=10
 )
 
+
 if st.button("Get Recommendations"):
+
     try:
         model = load_model()
         movies = load_movies()
@@ -143,10 +149,12 @@ if st.button("Get Recommendations"):
         )
 
     except FileNotFoundError:
+
         st.error(
             "Model or dataset files are missing. "
             "Please check the project structure."
         )
 
     except Exception as e:
+
         st.error(f"Error: {e}")
